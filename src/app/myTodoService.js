@@ -36,7 +36,15 @@ exports.TodoService = TodoService;
 var Todo = (function () {
     function Todo(_name) {
         this.name = _name;
+        this.done = false;
     }
+    Todo.prototype.setDone = function (value) {
+        this.done = value;
+    };
+    Todo.prototype.getDone = function () {
+        return this.done;
+    };
     return Todo;
 })();
+exports.Todo = Todo;
 //# sourceMappingURL=myTodoService.js.map

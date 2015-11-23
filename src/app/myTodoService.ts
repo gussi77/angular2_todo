@@ -22,10 +22,18 @@ export class TodoService {
     }
 }
 
-class Todo {
+export class Todo {
     name: string;
-
+    done: boolean;
     constructor(_name) {
         this.name = _name;
+        this.done = false;
+    }
+
+    setDone(value:boolean){
+        this.done = value;
+    }
+    getDone() {
+        return this.done;
     }
 }

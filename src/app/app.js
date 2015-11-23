@@ -26,6 +26,9 @@ var AppComponent = (function () {
     AppComponent.prototype.addTodo = function (name) {
         this.todoService.addTodo(name);
     };
+    AppComponent.prototype.setDone = function (todo) {
+        todo.setDone(!todo.getDone());
+    };
     AppComponent = __decorate([
         angular2_1.Component({
             selector: 'my-todo',

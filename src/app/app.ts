@@ -1,5 +1,5 @@
 import {bootstrap, Component, FORM_DIRECTIVES, NgFor} from 'angular2/angular2';
-import {TodoService} from './myTodoService';
+import {TodoService, Todo} from './myTodoService';
 
 @Component({
     selector: 'my-todo',
@@ -26,6 +26,9 @@ class AppComponent {
 
     addTodo(name) {
         this.todoService.addTodo(name);
+    }
+    setDone(todo:Todo) {
+        todo.setDone(!todo.getDone());
     }
 }
 
