@@ -17,14 +17,10 @@ var TodoService = (function () {
     TodoService.prototype.addTodo = function (name) {
         this.todos.push(new Todo(name));
     };
-    TodoService.prototype.setName = function (_name) {
-        this.name = _name;
-    };
-    TodoService.prototype.getName = function () {
-        return this.name;
-    };
     TodoService.prototype.getTodos = function () {
         return this.todos;
+    };
+    TodoService.prototype.deleteTodo = function (todo) {
     };
     TodoService = __decorate([
         angular2_1.Injectable(), 
@@ -35,6 +31,8 @@ var TodoService = (function () {
 exports.TodoService = TodoService;
 var Todo = (function () {
     function Todo(_name) {
+        console.log("id", uuid.v4());
+        this.id = uuid.v4();
         this.name = _name;
         this.done = false;
     }

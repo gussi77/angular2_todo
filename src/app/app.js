@@ -15,20 +15,11 @@ var AppComponent = (function () {
     function AppComponent(_todoService) {
         this.todos = [1, 2];
         this.todoService = _todoService;
-        this.name = 'Hallo';
-        this.todoService.setName("Neuer Name");
-        this.name = this.todoService.getName();
         this.todoService.addTodo("hallo");
         this.todoService.addTodo("hallo1");
         this.todoService.addTodo("hallo2");
         this.todos = this.todoService.getTodos();
     }
-    AppComponent.prototype.addTodo = function (name) {
-        this.todoService.addTodo(name);
-    };
-    AppComponent.prototype.setDone = function (todo) {
-        todo.setDone(!todo.getDone());
-    };
     AppComponent = __decorate([
         angular2_1.Component({
             selector: 'my-todo',

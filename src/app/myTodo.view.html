@@ -1,6 +1,10 @@
-<h1>This is my Todo View {{name}}</h1>
+<h1>This is my Todo View</h1>
 
-<input type="text" [(ng-model)]="temp"> <button (click)="addTodo(temp)">add</button>
+<input type="text" [(ng-model)]="temp"> <button (click)="todoService.addTodo(temp)">add</button>
 <ul>
-    <li *ng-for="#todo of todos"> <input type="checkbox" (click)="setDone(todo)"> {{todo.name}} -- {{todo.done}}</li>
+    <li *ng-for="#todo of todos">
+        <input type="checkbox" (click)="todo.setDone(!todo.getDone())">
+        {{todo.name}} -- {{todo.id}}
+        <button (click)="todoService.deleteTodo(todo)">delete</button>
+    </li>
 </ul>
