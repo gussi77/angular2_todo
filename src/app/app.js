@@ -13,18 +13,18 @@ var angular2_1 = require('angular2/angular2');
 var myTodoService_1 = require('./myTodoService');
 var AppComponent = (function () {
     function AppComponent(_todoService) {
-        this.todos = [1, 2];
+        this.isDone = true;
         this.todoService = _todoService;
         this.todoService.addTodo("hallo");
         this.todoService.addTodo("hallo1");
         this.todoService.addTodo("hallo2");
-        this.todos = this.todoService.getTodos();
     }
     AppComponent = __decorate([
         angular2_1.Component({
             selector: 'my-todo',
             templateUrl: 'app/myTodo.view.html',
-            directives: [angular2_1.FORM_DIRECTIVES, angular2_1.NgFor]
+            styles: ['.done { color: green; }'],
+            directives: [angular2_1.FORM_DIRECTIVES, angular2_1.NgFor, angular2_1.NgClass]
         }), 
         __metadata('design:paramtypes', [myTodoService_1.TodoService])
     ], AppComponent);

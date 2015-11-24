@@ -21,6 +21,9 @@ var TodoService = (function () {
         return this.todos;
     };
     TodoService.prototype.deleteTodo = function (todo) {
+        this.todos = this.todos.filter(function (element) {
+            return element.getId() === todo.getId() ? false : true;
+        });
     };
     TodoService = __decorate([
         angular2_1.Injectable(), 
@@ -31,7 +34,6 @@ var TodoService = (function () {
 exports.TodoService = TodoService;
 var Todo = (function () {
     function Todo(_name) {
-        console.log("id", uuid.v4());
         this.id = uuid.v4();
         this.name = _name;
         this.done = false;
@@ -41,6 +43,9 @@ var Todo = (function () {
     };
     Todo.prototype.getDone = function () {
         return this.done;
+    };
+    Todo.prototype.getId = function () {
+        return this.id;
     };
     return Todo;
 })();

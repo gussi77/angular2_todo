@@ -2,7 +2,7 @@ import {Injectable} from 'angular2/angular2';
 
 @Injectable()
 export class TodoService {
-    private todos: Array<number> = [];
+    private todos: Array<Todo> = [];
 
     addTodo(name:string) {
         this.todos.push(new Todo(name));
@@ -13,14 +13,9 @@ export class TodoService {
     }
 
     deleteTodo(todo:Todo) {
-        console.log("Hallo");
-        this.todos = this.todos.filter((element, index) => {
-            if(element.getId() === todo.getId()) {
-                return false
-            }
-            else {
-                return true;
-            }
+        this.todos = this.todos.filter((element) => {
+            return element.getId() === todo.getId() ? false : true;
+
         });
     }
 }
