@@ -33,6 +33,7 @@ export class Todo {
 
 
     setDone(value:boolean){
+        console.log("setDone");
         this.done = value;
     }
 

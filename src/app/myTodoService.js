@@ -6,9 +6,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
     }
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var angular2_1 = require('angular2/angular2');
 var TodoService = (function () {
     function TodoService() {
@@ -26,8 +23,7 @@ var TodoService = (function () {
         });
     };
     TodoService = __decorate([
-        angular2_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        angular2_1.Injectable()
     ], TodoService);
     return TodoService;
 })();
@@ -39,6 +35,7 @@ var Todo = (function () {
         this.done = false;
     }
     Todo.prototype.setDone = function (value) {
+        console.log("setDone");
         this.done = value;
     };
     Todo.prototype.getDone = function () {
