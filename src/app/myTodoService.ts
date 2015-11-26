@@ -4,15 +4,21 @@ import {Injectable} from 'angular2/angular2';
 export class TodoService {
     private todos: Array<Todo> = [];
 
-    addTodo(name:string) {
-        this.todos.push(new Todo(name));
+    constructor() {
+        var localTodos = JSON.parse(localStorage.getItem('myTodo'));
+        localStorage.setItem('myTodo', '[]');
+        (localTodos || []).forEach((todo) => this.addTodo(todo.name, todo.done));
     }
 
-    getTodos() {
+    public addTodo(name:string, done:boolean) {
+        this.todos.push(new Todo(name, done));
+    }
+
+    public getTodos() {
         return this.todos;
     }
 
-    deleteTodo(todo:Todo) {
+    public deleteTodo(todo:Todo) {
         this.todos = this.todos.filter((element) => {
             return element.getId() === todo.getId() ? false : true;
 
@@ -25,23 +31,42 @@ export class Todo {
     private name: string;
     private done: boolean;
 
-    constructor(_name) {
+    constructor(_name:string, _done:boolean = false) {
         this.id = uuid.v4();
         this.name = _name;
-        this.done = false;
+        this.done = _done;
+        this.addToLocalStorage();
     }
 
 
-    setDone(value:boolean){
-        console.log("setDone");
+    public setDone(value:boolean){
+        //console.log("setDone");
         this.done = value;
+        this.updateToLocalStorage();
     }
 
-    getDone() {
+    public getDone() {
         return this.done;
     }
 
-    getId() {
+    public getId() {
         return this.id;
     }
+
+    //FIXME: refactor
+    private addToLocalStorage() {
+        var localTodos = JSON.parse(localStorage.getItem('myTodo')) || [];
+        localTodos.push(this);
+        localStorage.setItem('myTodo', JSON.stringify(localTodos));
+    }
+    private updateToLocalStorage() {
+        var localTodos = JSON.parse(localStorage.getItem('myTodo')) || [];
+        localTodos.forEach((todo) => {
+           if(todo.id === this.getId()) {
+               todo.done = this.getDone();
+           }
+        });
+        localStorage.setItem('myTodo', JSON.stringify(localTodos));
+    }
+
 }

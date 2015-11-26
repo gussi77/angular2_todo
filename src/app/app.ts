@@ -12,10 +12,6 @@ class AppComponent {
     private isDone = true;
     constructor(_todoService: TodoService) {
         this.todoService = _todoService;
-
-        this.todoService.addTodo("hallo");
-        this.todoService.addTodo("hallo1");
-        this.todoService.addTodo("hallo2");
     }
 }
 

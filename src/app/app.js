@@ -15,9 +15,6 @@ var AppComponent = (function () {
     function AppComponent(_todoService) {
         this.isDone = true;
         this.todoService = _todoService;
-        this.todoService.addTodo("hallo");
-        this.todoService.addTodo("hallo1");
-        this.todoService.addTodo("hallo2");
     }
     AppComponent = __decorate([
         angular2_1.Component({

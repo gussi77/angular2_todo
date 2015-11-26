@@ -6,13 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
     }
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var angular2_1 = require('angular2/angular2');
 var TodoService = (function () {
     function TodoService() {
+        var _this = this;
         this.todos = [];
+        var localTodos = JSON.parse(localStorage.getItem('myTodo'));
+        localStorage.setItem('myTodo', '[]');
+        (localTodos || []).forEach(function (todo) { return _this.addTodo(todo.name, todo.done); });
     }
-    TodoService.prototype.addTodo = function (name) {
-        this.todos.push(new Todo(name));
+    TodoService.prototype.addTodo = function (name, done) {
+        this.todos.push(new Todo(name, done));
     };
     TodoService.prototype.getTodos = function () {
         return this.todos;
@@ -23,26 +30,46 @@ var TodoService = (function () {
         });
     };
     TodoService = __decorate([
-        angular2_1.Injectable()
+        angular2_1.Injectable(), 
+        __metadata('design:paramtypes', [])
     ], TodoService);
     return TodoService;
 })();
 exports.TodoService = TodoService;
 var Todo = (function () {
-    function Todo(_name) {
+    function Todo(_name, _done) {
+        if (_done === void 0) { _done = false; }
         this.id = uuid.v4();
         this.name = _name;
-        this.done = false;
+        this.done = _done;
+        this.addToLocalStorage();
     }
     Todo.prototype.setDone = function (value) {
-        console.log("setDone");
+        //console.log("setDone");
         this.done = value;
+        this.updateToLocalStorage();
     };
     Todo.prototype.getDone = function () {
         return this.done;
     };
     Todo.prototype.getId = function () {
         return this.id;
+    };
+    //FIXME: refactor
+    Todo.prototype.addToLocalStorage = function () {
+        var localTodos = JSON.parse(localStorage.getItem('myTodo')) || [];
+        localTodos.push(this);
+        localStorage.setItem('myTodo', JSON.stringify(localTodos));
+    };
+    Todo.prototype.updateToLocalStorage = function () {
+        var _this = this;
+        var localTodos = JSON.parse(localStorage.getItem('myTodo')) || [];
+        localTodos.forEach(function (todo) {
+            if (todo.id === _this.getId()) {
+                todo.done = _this.getDone();
+            }
+        });
+        localStorage.setItem('myTodo', JSON.stringify(localTodos));
     };
     return Todo;
 })();
