@@ -19,9 +19,19 @@ export class TodoService {
     }
 
     public deleteTodo(todo:Todo) {
+        console.log("deleteTODO");
+        var localTodos = JSON.parse(localStorage.getItem('myTodo'));
+        (localTodos || []).forEach((temp, index) => {
+            if(temp.id === todo.getId()) {
+                console.log("delete:", index);
+                localTodos.splice(index,1);
+            }
+        });
+        console.log(localTodos);
+        localStorage.setItem('myTodo', JSON.stringify(localTodos));
+
         this.todos = this.todos.filter((element) => {
             return element.getId() === todo.getId() ? false : true;
-
         });
     }
 }
@@ -68,5 +78,4 @@ export class Todo {
         });
         localStorage.setItem('myTodo', JSON.stringify(localTodos));
     }
-
 }

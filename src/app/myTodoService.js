@@ -25,6 +25,16 @@ var TodoService = (function () {
         return this.todos;
     };
     TodoService.prototype.deleteTodo = function (todo) {
+        console.log("deleteTODO");
+        var localTodos = JSON.parse(localStorage.getItem('myTodo'));
+        (localTodos || []).forEach(function (temp, index) {
+            if (temp.id === todo.getId()) {
+                console.log("delete:", index);
+                localTodos.splice(index, 1);
+            }
+        });
+        console.log(localTodos);
+        localStorage.setItem('myTodo', JSON.stringify(localTodos));
         this.todos = this.todos.filter(function (element) {
             return element.getId() === todo.getId() ? false : true;
         });
