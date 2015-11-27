@@ -6,80 +6,55 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
     }
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var angular2_1 = require('angular2/angular2');
+var LocalStorageService_1 = require('./LocalStorageService');
 var TodoService = (function () {
     function TodoService() {
         var _this = this;
         this.todos = [];
-        var localTodos = JSON.parse(localStorage.getItem('myTodo'));
-        localStorage.setItem('myTodo', '[]');
-        (localTodos || []).forEach(function (todo) { return _this.addTodo(todo.name, todo.done); });
+        this.storage = new LocalStorageService_1.LocalStorageService();
+        var localTodos = this.storage.getItem('myTodo');
+        console.log(localTodos);
+        (localTodos || []).forEach(function (todo) { return _this.addTodo(todo.name, todo.done, todo.id); });
     }
-    TodoService.prototype.addTodo = function (name, done) {
-        this.todos.push(new Todo(name, done));
+    TodoService.prototype.addTodo = function (name, done, id) {
+        if (done === void 0) { done = false; }
+        if (id === void 0) { id = ""; }
+        var todo = new Todo(name, done, id);
+        this.todos.push(todo);
+        this.storage.putItem('myTodo', todo);
+        return todo;
     };
     TodoService.prototype.getTodos = function () {
         return this.todos;
     };
     TodoService.prototype.deleteTodo = function (todo) {
-        console.log("deleteTODO");
-        var localTodos = JSON.parse(localStorage.getItem('myTodo'));
-        (localTodos || []).forEach(function (temp, index) {
-            if (temp.id === todo.getId()) {
-                console.log("delete:", index);
-                localTodos.splice(index, 1);
-            }
-        });
-        console.log(localTodos);
-        localStorage.setItem('myTodo', JSON.stringify(localTodos));
         this.todos = this.todos.filter(function (element) {
             return element.getId() === todo.getId() ? false : true;
         });
     };
     TodoService = __decorate([
-        angular2_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        angular2_1.Injectable()
     ], TodoService);
     return TodoService;
 })();
 exports.TodoService = TodoService;
 var Todo = (function () {
-    function Todo(_name, _done) {
+    function Todo(_name, _done, id) {
         if (_done === void 0) { _done = false; }
-        this.id = uuid.v4();
+        if (id === void 0) { id = ""; }
+        this.id = id == "" ? uuid.v4() : id;
         this.name = _name;
         this.done = _done;
-        this.addToLocalStorage();
     }
     Todo.prototype.setDone = function (value) {
-        //console.log("setDone");
         this.done = value;
-        this.updateToLocalStorage();
     };
     Todo.prototype.getDone = function () {
         return this.done;
     };
     Todo.prototype.getId = function () {
         return this.id;
-    };
-    //FIXME: refactor
-    Todo.prototype.addToLocalStorage = function () {
-        var localTodos = JSON.parse(localStorage.getItem('myTodo')) || [];
-        localTodos.push(this);
-        localStorage.setItem('myTodo', JSON.stringify(localTodos));
-    };
-    Todo.prototype.updateToLocalStorage = function () {
-        var _this = this;
-        var localTodos = JSON.parse(localStorage.getItem('myTodo')) || [];
-        localTodos.forEach(function (todo) {
-            if (todo.id === _this.getId()) {
-                todo.done = _this.getDone();
-            }
-        });
-        localStorage.setItem('myTodo', JSON.stringify(localTodos));
     };
     return Todo;
 })();
