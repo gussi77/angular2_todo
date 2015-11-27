@@ -4,7 +4,7 @@
             <div class="card  light-blue darken-2">
                 <div class="card-content white-text">
 
-                    <span class="card-title">My Todos [{{todoService.getTodos().length}}]</span>
+                    <span class="card-title">My Todos </span>
 
                     <div class="row valign-wrapper">
                         <div class="col s9 input-field">
@@ -13,7 +13,7 @@
                         </div>
                         <div class="col s3 ">
                             <a class="waves-effect waves-light btn center-align orange darken-3"
-                               (click)="todoService.addTodo(temp); temp=''">add</a>
+                               (click)="todoService.addTodo(temp, false); temp=''">add</a>
                         </div>
                     </div>
 
