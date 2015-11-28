@@ -1,19 +1,25 @@
 <div class="container blue-grey lighten-4">
     <div class="row">
-        <div class="col s12 m6">
-            <div class="card  light-blue darken-2">
+        <div class="col s12">
+            <div class="card light-blue darken-2">
                 <div class="card-content white-text">
 
-                    <span class="card-title">My Todos </span>
+                    <span class="card-title">My Todos [{{todoService.getTodos().length}}] </span>
 
-                    <div class="row valign-wrapper">
-                        <div class="col s9 input-field">
-                            <input placeholder="add Todo" id="first_name" type="text" class="validate"
-                                   [(ng-model)]="temp">
-                        </div>
-                        <div class="col s3 ">
-                            <a class="waves-effect waves-light btn center-align orange darken-3"
-                               (click)="todoService.addTodo(temp, false); temp=''">add</a>
+
+
+
+                    <div class="collection">
+                        <div class="collection-item row valign-wrapper"  style="color: black;">
+                            <div class="col s10 input-field">
+                                <input placeholder="add Todo" id="first_name" type="text" class="validate"
+                                       [(ng-model)]="temp">
+                            </div>
+                            <div class="col s2">
+                                <a class="waves-effect waves-light btn center-align orange darken-3"
+                                   (click)="todoService.addTodo(temp, false); temp=''">add</a>
+                            </div>
+
                         </div>
                     </div>
 
@@ -24,15 +30,16 @@
                                 <label>
                                     <input [checked]="todo.getDone() == true" type="checkbox" (click)="todo.setDone(!todo.getDone());todoService.updateTodo(todo)">
                                     <span class="lever"></span>
+                                    <span [class.done]="todo.getDone()"> done </span>
                                 </label>
                             </div>
 
 
-                            <div class="col s7">
+                            <div class="col s8">
                                 {{todo.name}}
                             </div>
 
-                            <div class="col s3">
+                            <div class="col s2">
                                 <a class="waves-effect waves-light btn" (click)="todoService.deleteTodo(todo)" >del</a>
                             </div>
 
