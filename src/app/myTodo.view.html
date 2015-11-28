@@ -22,7 +22,7 @@
 
                             <div class="switch col s2" >
                                 <label>
-                                    <input [checked]="todo.getDone() == true" type="checkbox" (click)="todo.setDone(!todo.getDone())">
+                                    <input [checked]="todo.getDone() == true" type="checkbox" (click)="todo.setDone(!todo.getDone());todoService.updateTodo(todo)">
                                     <span class="lever"></span>
                                 </label>
                             </div>

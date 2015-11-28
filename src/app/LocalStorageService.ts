@@ -3,6 +3,7 @@ export interface IStorageService {
     setItem(path:string, value:string);
     addItem(path:string, value:string);
     putItem(path:string, value:string);
+    deleteItem(path:string, value:string);
 }
 
 export class LocalStorageService implements IStorageService {
@@ -35,6 +36,12 @@ export class LocalStorageService implements IStorageService {
             items.push(value);
         }
 
+        this.setItem(path, JSON.stringify(items));
+    }
+
+    public deleteItem(path: string, value:string) {
+        var items = this.getItem(path);
+        items = items.filter((item) => item.id === value.id ? false : true)
         this.setItem(path, JSON.stringify(items));
     }
 }

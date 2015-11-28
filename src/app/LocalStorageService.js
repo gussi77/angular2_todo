@@ -28,6 +28,11 @@ var LocalStorageService = (function () {
         }
         this.setItem(path, JSON.stringify(items));
     };
+    LocalStorageService.prototype.deleteItem = function (path, value) {
+        var items = this.getItem(path);
+        items = items.filter(function (item) { return item.id === value.id ? false : true; });
+        this.setItem(path, JSON.stringify(items));
+    };
     return LocalStorageService;
 })();
 exports.LocalStorageService = LocalStorageService;

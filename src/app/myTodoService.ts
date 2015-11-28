@@ -25,10 +25,21 @@ export class TodoService {
     }
 
     public deleteTodo(todo:Todo) {
-
        this.todos = this.todos.filter((element) => {
             return element.getId() === todo.getId() ? false : true;
+       });
+
+       this.storage.deleteItem('myTodo', todo);
+    }
+
+    public updateTodo(updateTodo:Todo) {
+        this.todos.forEach((todo) => {
+            if(todo.getId() == updateTodo.getId()) {
+                todo.setDone(updateTodo.getDone());
+            }
         });
+
+        this.storage.putItem('myTodo', updateTodo);
     }
 }
 

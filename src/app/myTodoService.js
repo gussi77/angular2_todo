@@ -6,6 +6,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
     }
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var angular2_1 = require('angular2/angular2');
 var LocalStorageService_1 = require('./LocalStorageService');
 var TodoService = (function () {
@@ -32,9 +35,19 @@ var TodoService = (function () {
         this.todos = this.todos.filter(function (element) {
             return element.getId() === todo.getId() ? false : true;
         });
+        this.storage.deleteItem('myTodo', todo);
+    };
+    TodoService.prototype.updateTodo = function (updateTodo) {
+        this.todos.forEach(function (todo) {
+            if (todo.getId() == updateTodo.getId()) {
+                todo.setDone(updateTodo.getDone());
+            }
+        });
+        this.storage.putItem('myTodo', updateTodo);
     };
     TodoService = __decorate([
-        angular2_1.Injectable()
+        angular2_1.Injectable(), 
+        __metadata('design:paramtypes', [])
     ], TodoService);
     return TodoService;
 })();
